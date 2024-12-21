@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/incident_reporting_backend"
+]
+resolver = "2"

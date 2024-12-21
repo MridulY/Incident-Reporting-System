@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "incident_reporting_backend": {
+      "candid": "src/incident_reporting_backend/incident_reporting_backend.did",
+      "package": "incident_reporting_backend",
+      "type": "rust"
+    },
+    "incident_reporting_frontend": {
+      "dependencies": [
+        "incident_reporting_backend"
+      ],
+      "source": [
+        "src/incident_reporting_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "incident_reporting_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
