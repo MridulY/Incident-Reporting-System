@@ -1,3 +1,43 @@
+type CanisterStatusResponse = record {
+  status : CanisterStatusType;
+  memory_size : nat;
+  cycles : nat;
+  settings : DefiniteCanisterSettings;
+  query_stats : QueryStats;
+  idle_cycles_burned_per_day : nat;
+  module_hash : opt blob;
+  reserved_cycles : nat;
+};
+type CanisterStatusType = variant { stopped; stopping; running };
+type DefiniteCanisterSettings = record {
+  freezing_threshold : nat;
+  controllers : vec principal;
+  reserved_cycles_limit : nat;
+  memory_allocation : nat;
+  compute_allocation : nat;
+};
+type Incident = record {
+  id : text;
+  status : IncidentStatus;
+  title : text;
+  description : text;
+  timestamp : nat64;
+  media_url : opt text;
+  reporter : principal;
+  location : text;
+};
+type IncidentStatus = variant { Resolved; Verified; Pending };
+type QueryStats = record {
+  response_payload_bytes_total : nat;
+  num_instructions_total : nat;
+  num_calls_total : nat;
+  request_payload_bytes_total : nat;
+};
+type Result = variant { Ok : CanisterStatusResponse; Err : text };
+type Result_1 = variant { Ok : Incident; Err : text };
 service : {
-    "greet": (text) -> (text) query;
+  add_incident : (Incident) -> (text);
+  get_canister_status : () -> (Result);
+  get_incident : (text) -> (Result_1) query;
+  greet : (text) -> (text) query;
 }
